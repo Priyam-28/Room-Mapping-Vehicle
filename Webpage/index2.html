@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            background-image: url();
+        }
+        .container{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            
+        }
+        
+        .box1{
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 20vh;
+            width: 20vw;
+            color: white;
+            background-color: black;
+            margin: 5px;
+
+        }
+        .box2{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 20vh;
+            width: 20vw;
+            color: white;
+            background-color: black;
+
+        }
+        .arrow{
+            margin:5px;
+            font-size: 18vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 20vh;
+            width: 20vw;
+            color: white;
+            background-color: black;
+            
+            
+
+        }
+        
+        
+    </style>
+</head>
+<body>
+
+    <div class="container" id="page">
+        <h1>Room Mapping Robot</h1><br>
+        <h2>Project Kratos</h2>
+        <div class="box1">
+            <span class="arrow" ontouchstart='onTouchStartAndEnd("1")' ontouchend='onTouchStartAndEnd("0")'>&#8679;</span>
+        </div>
+        <div class="box1">
+            <div class="l1" ontouchstart='onTouchStartAndEnd("3")' ontouchend='onTouchStartAndEnd("0")'><span class="arrow">&#8678;</span></div>
+            <div class="l2" ontouchstart='onTouchStartAndEnd("2")' ontouchend='onTouchStartAndEnd("0")' ><span class="arrow">&#8681;</span></div>
+            <div class="l3" ontouchstart='onTouchStartAndEnd("4")' ontouchend='onTouchStartAndEnd("0")'><span class="arrow">&#8680;</span></div>
+        </div>
+    </div>
+    <script>
+        var webSocketUrl = "ws:\/\/" + window.location.hostname + "/ws";
+        var websocket;
+        
+        function initWebSocket() 
+        {
+          websocket = new WebSocket(webSocketUrl);
+          websocket.onopen    = function(event){};
+          websocket.onclose   = function(event){setTimeout(initWebSocket, 2000);};
+          websocket.onmessage = function(event){};
+        }
+  
+        function onTouchStartAndEnd(value) 
+        {
+          websocket.send(value);
+        }
+            
+        window.onload = initWebSocket;
+        document.getElementById("page").addEventListener("touchend", function(event){
+          event.preventDefault()
+        });      
+      </script>
+</body>
+</html>
